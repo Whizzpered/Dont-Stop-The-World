@@ -20,6 +20,7 @@ import com.mygdx.game.objects.Moon;
 import com.mygdx.game.objects.Obstacle;
 import com.mygdx.game.objects.Player;
 import com.mygdx.game.objects.Robot;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 /**
  *
@@ -31,6 +32,11 @@ public class GameStage extends Stage {
     private OrthographicCamera cam;
     AssetManager asset;
     private TextureAtlas atlas;
+    private BitmapFont font;
+
+    public BitmapFont getFont() {
+        return font;
+    }
 
     public TextureAtlas getAtlas() {
         return atlas;
@@ -66,6 +72,7 @@ public class GameStage extends Stage {
         asset.load("TexturePack.pack", TextureAtlas.class);
         asset.finishLoading();
         atlas = asset.get("TexturePack.pack");
+        font = new BitmapFont();
     }
 
     public void initCam() {
@@ -78,7 +85,7 @@ public class GameStage extends Stage {
     public void act() {
         super.act();
         if (getObstacles().size < 3) {
-            addEntity(new Obstacle(MyGdxGame.RANDOM.nextInt(260) + 30, 
+            addEntity(new Obstacle(MyGdxGame.RANDOM.nextInt(260) + 30,
                     pl.getY() + 420 + MyGdxGame.RANDOM.nextInt(100)));
             addEntity(new Obstacle(MyGdxGame.RANDOM.nextInt(260) + 30,
                     pl.getY() + 580 + MyGdxGame.RANDOM.nextInt(100)));
