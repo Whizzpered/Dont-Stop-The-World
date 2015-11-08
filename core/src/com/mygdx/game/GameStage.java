@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.objects.Entity;
+import com.mygdx.game.objects.Moon;
 import com.mygdx.game.objects.Obstacle;
 import com.mygdx.game.objects.Player;
 import com.mygdx.game.objects.Robot;
@@ -76,7 +77,7 @@ public class GameStage extends Stage {
     @Override
     public void act() {
         super.act();
-        if (getObstacles().size < 2) {
+        if (getObstacles().size < 3) {
             addEntity(new Obstacle(90, pl.getY() + 420));
             addEntity(new Obstacle(160, pl.getY() + 420));
         }
@@ -112,6 +113,7 @@ public class GameStage extends Stage {
             }
         });
         addEntity(new Obstacle(120, 200));
+        addEntity(new Moon(180, 190));
     }
 
 }
