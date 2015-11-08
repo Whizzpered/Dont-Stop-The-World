@@ -5,6 +5,8 @@
  */
 package com.mygdx.game.objects;
 
+import com.mygdx.game.MyGdxGame;
+
 /**
  *
  * @author Whizzpered
@@ -14,7 +16,8 @@ public class Obstacle extends Entity {
     public Obstacle(float x, float y) {
         super(x, y);
         touchable = true;
-        setName("nlo");
+        setName("nlo"); //nlo, błąd. UFO
+        velocity.x = MyGdxGame.RANDOM.nextBoolean() ? -50 : 50;
     }
 
     @Override
@@ -26,12 +29,21 @@ public class Obstacle extends Entity {
         if (collides(getStage().getPlayer())) {
             action();
         }
-
+        if (Math.abs(velocity.y) >= 400) {
+            remove();
+        }
     }
 
     @Override
     public void action() {
-        getStage().getPlayer().up();
-        getStage().getActors().removeValue(this, true);
+        velocity.y = getStage().getPlayer().getVelocity().y / 2;
+        acceleration.y = 100;
+        if (velocity.y < 10) {
+            velocity.y = -200;
+            acceleration.y = -100;
+        }
+        getStage().getPlayer().getVelocity().y = -getStage().getPlayer().getVelocity().y / 2;
+        getStage().getPlayer().getVelocity().x = getStage().getPlayer().getX() - getX();
+        velocity.x = getX() - getStage().getPlayer().getX();
     }
 }

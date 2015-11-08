@@ -26,12 +26,19 @@ public class Robot extends Entity {
 
     @Override
     public void act(float delta) {
+        super.act(delta);
         sprite.setFlip(getStage().getPlayer().getX() > 160, true);
+        if(getStage().getPlayer().getX() > getX()){
+            velocity.x++;
+        }
+        if(getStage().getPlayer().getX() < getX()){
+            velocity.y--;
+        }
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        sprite.setCenterX(160);
+        sprite.setCenterX(getX());
         sprite.setCenterY(50);
         sprite.draw(batch);
     }

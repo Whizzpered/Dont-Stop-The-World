@@ -19,17 +19,10 @@ public class Moon extends Entity {
     @Override
     public void act(float delta) {
         velocity.y = getStage().getPlayer().velocity.y * 2 / 3;
-        setX(getX() + velocity.cpy().scl(delta).x);
-        setY(getY() + velocity.cpy().scl(delta).y);
-        cl.set(getX(), getY(), getWidth() / 3);
-        if (getX() < 0) {
-            setX(0);
+        setX(160 - getStage().getPlayer().getX() / 2);
+        if (getY() <= getStage().getPlayer().getY() - 300) {
+            setY(getStage().getPlayer().getY() + 400);
         }
-
-        if (getX() > this.getStage().getWidth() - getWidth()) {
-            setX(this.getStage().getWidth() - getWidth());
-        }
-
     }
 
 }

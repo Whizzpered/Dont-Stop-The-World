@@ -78,8 +78,10 @@ public class GameStage extends Stage {
     public void act() {
         super.act();
         if (getObstacles().size < 3) {
-            addEntity(new Obstacle(90, pl.getY() + 420));
-            addEntity(new Obstacle(160, pl.getY() + 420));
+            addEntity(new Obstacle(MyGdxGame.RANDOM.nextInt(260) + 30, 
+                    pl.getY() + 420 + MyGdxGame.RANDOM.nextInt(100)));
+            addEntity(new Obstacle(MyGdxGame.RANDOM.nextInt(260) + 30,
+                    pl.getY() + 580 + MyGdxGame.RANDOM.nextInt(100)));
         }
     }
 
@@ -89,9 +91,10 @@ public class GameStage extends Stage {
     }
 
     public void initEntities() {
-        pl = new Player(50, 0);
+        addEntity(new Moon(180, 190));
+        pl = new Player(160, 0);
         addEntity(pl);
-        addEntity(new Robot(0, 0));
+        addEntity(new Robot(160, 0));
         setKeyboardFocus(pl);
         addListener(new InputListener() {
             @Override
@@ -113,7 +116,6 @@ public class GameStage extends Stage {
             }
         });
         addEntity(new Obstacle(120, 200));
-        addEntity(new Moon(180, 190));
     }
 
 }

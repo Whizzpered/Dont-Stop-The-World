@@ -14,7 +14,6 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class Player extends Entity {
 
-    double angle = 0;
     boolean up = false;
 
     public Player(float x, float y) {
@@ -34,14 +33,6 @@ public class Player extends Entity {
         if (getVelocity().y > 100) {
             up = false;
         }
-        if (!up) {
-            angle += getVelocity().y * delta / 25;
-            if (angle > 2 * Math.PI) {
-                angle -= 2 * Math.PI;
-            }
-
-        }
-        setX((float) (160 + Math.sin(angle) * 30f));
     }
 
     @Override
