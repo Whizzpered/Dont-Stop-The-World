@@ -2,9 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import java.util.Random;
 
@@ -15,6 +13,7 @@ public class MyGdxGame extends ApplicationAdapter {
     @Override
     public void create() {
         stage = new GameStage(new StretchViewport(320, 480));
+        stage.initialize();
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -30,8 +29,6 @@ public class MyGdxGame extends ApplicationAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.draw();
         stage.act();
-        stage.getFont().setColor(Color.WHITE);
-        stage.getFont().draw(null, String.valueOf(stage.getPoints()), 10, 10);
     }
 
     @Override

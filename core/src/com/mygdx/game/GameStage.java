@@ -7,6 +7,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -29,7 +30,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 public class GameStage extends Stage {
 
     private float points;
-    
+
     private Player pl;
     private OrthographicCamera cam;
     AssetManager asset;
@@ -47,9 +48,9 @@ public class GameStage extends Stage {
     public Player getPlayer() {
         return pl;
     }
-    
-    public int getPoints(){
-        return (int)points;
+
+    public int getPoints() {
+        return (int) points;
     }
 
     public Array<Obstacle> getObstacles() {
@@ -78,7 +79,7 @@ public class GameStage extends Stage {
         asset.load("TexturePack.pack", TextureAtlas.class);
         asset.finishLoading();
         atlas = asset.get("TexturePack.pack");
-        font = new BitmapFont();
+        font = new BitmapFont(true);
     }
 
     public void initCam() {
@@ -90,7 +91,7 @@ public class GameStage extends Stage {
     @Override
     public void act() {
         super.act();
-        points += (500 - pl.getVelocity().y)/100f;
+        points += (500 - pl.getVelocity().y) / 100f;
         if (getObstacles().size < 3) {
             addEntity(new Obstacle(MyGdxGame.RANDOM.nextInt(260) + 30,
                     pl.getY() + 420 + MyGdxGame.RANDOM.nextInt(100)));
@@ -132,4 +133,12 @@ public class GameStage extends Stage {
         addEntity(new Obstacle(120, 200));
     }
 
+    @Override
+    public void draw() {
+        super.draw();
+        getBatch().begin();
+        getFont().setColor(Color.WHITE);
+        getFont().draw(getBatch(), String.valueOf(getPoints()), 10, 10);
+        getBatch().end();
+    }
 }
