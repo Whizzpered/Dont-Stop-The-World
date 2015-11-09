@@ -28,6 +28,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
  */
 public class GameStage extends Stage {
 
+    private float points;
+    
     private Player pl;
     private OrthographicCamera cam;
     AssetManager asset;
@@ -44,6 +46,10 @@ public class GameStage extends Stage {
 
     public Player getPlayer() {
         return pl;
+    }
+    
+    public int getPoints(){
+        return (int)points;
     }
 
     public Array<Obstacle> getObstacles() {
@@ -84,6 +90,7 @@ public class GameStage extends Stage {
     @Override
     public void act() {
         super.act();
+        points += (500 - pl.getVelocity().y)/100f;
         if (getObstacles().size < 3) {
             addEntity(new Obstacle(MyGdxGame.RANDOM.nextInt(260) + 30,
                     pl.getY() + 420 + MyGdxGame.RANDOM.nextInt(100)));
