@@ -22,6 +22,9 @@ import com.mygdx.game.objects.Obstacle;
 import com.mygdx.game.objects.Player;
 import com.mygdx.game.objects.Robot;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.mygdx.game.events.Event;
+import com.mygdx.game.events.EventHandler;
+import com.mygdx.game.events.EventParachuter;
 
 /**
  *
@@ -72,6 +75,7 @@ public class GameStage extends Stage {
         initAssets();
         initCam();
         initEntities();
+        initEvents();
     }
 
     private void initAssets() {
@@ -88,10 +92,15 @@ public class GameStage extends Stage {
         getViewport().setCamera(cam);
     }
 
+    public void initEvents() {
+        Event parachuter = new EventParachuter();
+    }
+
     @Override
     public void act() {
         super.act();
-        points += (500 - pl.getVelocity().y) / 100f;
+        EventHandler.act(this, 1);
+        points += (500 - pl.getVelocity().y) / 5000f;
         if (getObstacles().size < 3) {
             addEntity(new Obstacle(MyGdxGame.RANDOM.nextInt(260) + 30,
                     pl.getY() + 420 + MyGdxGame.RANDOM.nextInt(100)));
