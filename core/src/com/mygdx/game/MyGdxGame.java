@@ -13,7 +13,6 @@ public class MyGdxGame extends ApplicationAdapter {
     @Override
     public void create() {
         stage = new GameStage(new StretchViewport(320, 480));
-        stage.initialize();
         Gdx.input.setInputProcessor(stage);
     }
 
