@@ -17,7 +17,6 @@
 package com.mygdx.game.events;
 
 import com.mygdx.game.GameStage;
-import com.mygdx.game.objects.Obstacle;
 import com.mygdx.game.objects.Player;
 
 /**
