@@ -37,14 +37,9 @@ public class GameStage extends Stage {
     private TextureAtlas atlas;
     private BitmapFont font;
     private Entity focus;
-    private float currentEventColor=0f;
+    public boolean changeEventColor=false;
     private boolean gameOver=false;
-    public float getCurrentEventColor() {
-        return currentEventColor;
-    }
-    public void setCurrentEventColor(float currentEventColor) {
-        this.currentEventColor= currentEventColor;
-    }
+
     public  boolean isGameOver(){
         return  gameOver;
     }

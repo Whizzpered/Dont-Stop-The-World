@@ -13,11 +13,11 @@ public class EventSlowness extends Event{
                     10, //Приоритет выполнения
                     10 //Время выполнения в секундах
             );
-            colorIndication=0.5f;
+            colorIndication=true;
         }
         @Override
         public void apply(GameStage stage) { //Начало работы ивента.
-            gameStage.setCurrentEventColor(colorIndication);
+            gameStage.changeEventColor=true;
             stage.setSlowCoef(2.8f);
         }
 
@@ -27,7 +27,7 @@ public class EventSlowness extends Event{
 
         @Override
         public void dispose(GameStage stage) {//Завершение работы ивента.
-            gameStage.setCurrentEventColor(0f);
+            gameStage.changeEventColor=false;
             stage.setSlowCoef(1f);
         }
 }
