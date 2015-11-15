@@ -29,7 +29,7 @@ import java.util.logging.Logger;
 public abstract class Event implements Cloneable {
 
     static ArrayList<Event> events = new ArrayList<Event>();
-    protected float colorIndication=0f;
+    protected boolean colorIndication=false;
     public final int PRIORITY;
     private ArrayList<Entity> entities;
     private double timer;
