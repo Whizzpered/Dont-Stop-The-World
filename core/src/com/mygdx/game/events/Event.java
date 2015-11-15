@@ -62,11 +62,11 @@ public abstract class Event implements Cloneable {
     final void apply() {
         apply(gameStage);
     }
-    public abstract  void apply(GameStage stage);
+    public abstract void apply(GameStage stage);
 
     public abstract void act(GameStage stage, float delta);
 
-    public abstract  void dispose(GameStage stage);
+    public abstract void dispose(GameStage stage);
 
     @Override
     protected Object clone() throws CloneNotSupportedException {
@@ -83,5 +83,4 @@ public abstract class Event implements Cloneable {
         }
         return null;
     }
-
 }
