@@ -14,7 +14,7 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class Player extends Entity {
     boolean up = false;
-    private int DEATH_VELOCITY=800;
+    private int DEATH_VELOCITY=680;
     public Player(float x, float y) {
         super(x, y);
         acceleration = new Vector2(0, 100);

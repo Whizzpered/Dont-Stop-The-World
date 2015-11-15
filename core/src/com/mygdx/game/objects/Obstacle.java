@@ -7,7 +7,7 @@ import com.mygdx.game.MyGdxGame;
  * @author Whizzpered
  */
 public class Obstacle extends Entity {
-    private int DEATH_VELOCITY=700;
+    private int DEATH_VELOCITY=560;
     public Obstacle(float x, float y) {
         super(x, y);
         touchable = true;
