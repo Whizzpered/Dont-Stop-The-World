@@ -5,7 +5,6 @@
  */
 package com.mygdx.game;
 
-
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -30,23 +29,26 @@ import java.util.HashMap;
 public class GameStage extends Stage {
 
     private float points;
-    private float slowCoef =1f;
+    private float slowCoef = 1f;
     private Player pl;
     private OrthographicCamera cam;
     AssetManager asset;
     private TextureAtlas atlas;
     private BitmapFont font;
     private Entity focus;
-    public boolean changeEventColor=false;
-    private boolean gameOver=false;
+    public boolean changeEventColor = false;
+    private boolean gameOver = false;
 
-    public  boolean isGameOver(){
-        return  gameOver;
+    public boolean isGameOver() {
+        return gameOver;
     }
-    public void setGameOver(boolean gameover){
-        gameOver=gameover;
+
+    public void setGameOver(boolean gameover) {
+        gameOver = gameover;
     }
+
     //list of Events that are currently working
+
     public BitmapFont getFont() {
         return font;
     }
@@ -62,10 +64,10 @@ public class GameStage extends Stage {
     public int getPoints() {
         return (int) points;
     }
+
     public void setSlowCoef(float slowCoef) {
         this.slowCoef = slowCoef;
     }
-
 
     public Array<Obstacle> getObstacles() {
         Array<Obstacle> ob = new Array<Obstacle>();
@@ -104,13 +106,13 @@ public class GameStage extends Stage {
     }
 
     public void initEvents() {
-        Event slow= new EventSlowness();
+        Event slow = new EventSlowness();
 
     }
 
     @Override
     public void act(float delta) {
-        if(!gameOver) {
+        if (!gameOver) {
             EventHandler.act(this, 1);
             super.act(delta / slowCoef);
             points += (500 - pl.getVelocity().y) / 5000f / slowCoef;
@@ -171,8 +173,9 @@ public class GameStage extends Stage {
         getFont().setColor(Color.WHITE);
         getFont().draw(getBatch(), (int) (getPlayer().getVelocity().y / 10) + " kM/s", 10, 30);
         getFont().draw(getBatch(), String.valueOf(getPoints()), 10, 10);
-        if(gameOver)
-            getFont().draw(getBatch(), "GameOver",10, 50);
+        if (gameOver) {
+            getFont().draw(getBatch(), "GameOver", 10, 50);
+        }
         getBatch().end();
     }
 }

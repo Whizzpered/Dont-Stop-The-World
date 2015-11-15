@@ -25,7 +25,7 @@ import com.mygdx.game.MyGdxGame;
  */
 public class EventHandler {
 
-    public static final int MAXIMAL_EVENT_INTERVAL = 5 /*Секунд*/ * 1000 /*Миллисекунд*/; //Максимальный интервал,
+    public static final int MAXIMAL_EVENT_INTERVAL = 2 /*Секунд*/ * 1000 /*Миллисекунд*/; //Максимальный интервал,
     public static final int MINIMAL_EVENT_INTERVAL = 1 /*Секунд*/ * 1000 /*Миллисекунд*/; //Минимальный интервал.
 
     private static int randomInterval() {
