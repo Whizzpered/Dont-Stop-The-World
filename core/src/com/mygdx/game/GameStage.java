@@ -5,7 +5,7 @@
  */
 package com.mygdx.game;
 
-import com.badlogic.gdx.Gdx;
+
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -19,6 +19,9 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.objects.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.mygdx.game.events.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -34,7 +37,21 @@ public class GameStage extends Stage {
     private TextureAtlas atlas;
     private BitmapFont font;
     private Entity focus;
-
+    private float currentEventColor=0f;
+    private boolean gameOver=false;
+    public float getCurrentEventColor() {
+        return currentEventColor;
+    }
+    public void setCurrentEventColor(float currentEventColor) {
+        this.currentEventColor= currentEventColor;
+    }
+    public  boolean isGameOver(){
+        return  gameOver;
+    }
+    public void setGameOver(boolean gameover){
+        gameOver=gameover;
+    }
+    //list of Events that are currently working
     public BitmapFont getFont() {
         return font;
     }
@@ -53,6 +70,7 @@ public class GameStage extends Stage {
     public void setSlowCoef(float slowCoef) {
         this.slowCoef = slowCoef;
     }
+
 
     public Array<Obstacle> getObstacles() {
         Array<Obstacle> ob = new Array<Obstacle>();
@@ -92,18 +110,21 @@ public class GameStage extends Stage {
 
     public void initEvents() {
         Event slow= new EventSlowness();
+
     }
 
     @Override
     public void act(float delta) {
-        EventHandler.act(this, 1);
-        super.act(delta / slowCoef);
-        points += (500 - pl.getVelocity().y) / 5000f / slowCoef;
-        if (getObstacles().size < 3) {
-            addEntity(new Obstacle(MyGdxGame.RANDOM.nextInt(260) + 30,
-                    pl.getY() + 420 + MyGdxGame.RANDOM.nextInt(100)));
-            addEntity(new Obstacle(MyGdxGame.RANDOM.nextInt(260) + 30,
-                    pl.getY() + 580 + MyGdxGame.RANDOM.nextInt(100)));
+        if(!gameOver) {
+            EventHandler.act(this, 1);
+            super.act(delta / slowCoef);
+            points += (500 - pl.getVelocity().y) / 5000f / slowCoef;
+            if (getObstacles().size < 3) {
+                addEntity(new Obstacle(MyGdxGame.RANDOM.nextInt(260) + 30,
+                        pl.getY() + 420 + MyGdxGame.RANDOM.nextInt(100)));
+                addEntity(new Obstacle(MyGdxGame.RANDOM.nextInt(260) + 30,
+                        pl.getY() + 580 + MyGdxGame.RANDOM.nextInt(100)));
+            }
         }
     }
 
@@ -153,7 +174,10 @@ public class GameStage extends Stage {
         super.draw();
         getBatch().begin();
         getFont().setColor(Color.WHITE);
+        getFont().draw(getBatch(), (int) (getPlayer().getVelocity().y / 10) + " kM/s", 10, 30);
         getFont().draw(getBatch(), String.valueOf(getPoints()), 10, 10);
+        if(gameOver)
+            getFont().draw(getBatch(), "GameOver",10, 50);
         getBatch().end();
     }
 }

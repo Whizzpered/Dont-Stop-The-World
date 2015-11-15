@@ -24,7 +24,8 @@ public class MyGdxGame extends ApplicationAdapter {
     @Override
     public void render() {
         float c = Math.max(0, stage.getPlayer().getVelocity().y - 200) / 500;
-        Gdx.gl.glClearColor(c, (1f - c) * 0.3f, (1f - c) * 0.3f, 1f);
+        Gdx.gl.glClearColor(c, (1f - c) *(stage.getCurrentEventColor()+ 0.3f),
+                         (1f - c) * (stage.getCurrentEventColor()+ 0.3f), 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.draw();
         stage.act();

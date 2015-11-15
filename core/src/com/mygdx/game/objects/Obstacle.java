@@ -7,7 +7,7 @@ import com.mygdx.game.MyGdxGame;
  * @author Whizzpered
  */
 public class Obstacle extends Entity {
-
+    private int DEATH_VELOCITY=700;
     public Obstacle(float x, float y) {
         super(x, y);
         touchable = true;
@@ -22,6 +22,11 @@ public class Obstacle extends Entity {
             getStage().getActors().removeValue(this, true);
         }
         if (!used && collides(getStage().getPlayer())) {
+            if(getStage().getPlayer().getVelocity().y>DEATH_VELOCITY){
+               getStage().setGameOver(true);
+                sprite = getStage().getAtlas().createSprite("nlo_damaged");
+                return;
+            }
             action();
         }
         if (Math.abs(velocity.y) >= 400) {

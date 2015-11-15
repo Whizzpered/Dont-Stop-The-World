@@ -29,7 +29,7 @@ import java.util.logging.Logger;
 public abstract class Event implements Cloneable {
 
     static ArrayList<Event> events = new ArrayList<Event>();
-
+    protected float colorIndication=0f;
     public final int PRIORITY;
     private ArrayList<Entity> entities;
     private double timer;
@@ -62,12 +62,11 @@ public abstract class Event implements Cloneable {
     final void apply() {
         apply(gameStage);
     }
-
-    public abstract void apply(GameStage stage);
+    public abstract  void apply(GameStage stage);
 
     public abstract void act(GameStage stage, float delta);
 
-    public abstract void dispose(GameStage stage);
+    public abstract  void dispose(GameStage stage);
 
     @Override
     protected Object clone() throws CloneNotSupportedException {
@@ -84,4 +83,5 @@ public abstract class Event implements Cloneable {
         }
         return null;
     }
+
 }
