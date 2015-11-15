@@ -91,7 +91,7 @@ public class GameStage extends Stage {
     }
 
     public void initEvents() {
-        Event parachuter = new EventParachuter();
+        Event slow= new EventSlowness();
     }
 
     @Override
