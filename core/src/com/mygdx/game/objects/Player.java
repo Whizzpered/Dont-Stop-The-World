@@ -8,6 +8,7 @@ package com.mygdx.game.objects;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.effects.Effect;
+import com.mygdx.game.effects.Effects;
 
 /**
  *
@@ -15,8 +16,11 @@ import com.mygdx.game.effects.Effect;
  */
 public class Player extends Entity {
     boolean up = false;
+    public short health=3;
     private final int DEATH_VELOCITY=680;
-    private Effect[] effects=new Effect[10];
+    public Effect[] effects=new Effect[10];
+
+
     public Player(float x, float y) {
         super(x, y);
         acceleration = new Vector2(0, 100);
@@ -35,7 +39,14 @@ public class Player extends Entity {
             up = false;
         }
         if (velocity.y > DEATH_VELOCITY) {
+           health=0;
+        }
+        if(health<0){
             getStage().setGameOver(true);
+        }
+        for (Effect e: effects){
+            if(e!=null)
+              e.act(delta);
         }
     }
 
@@ -46,12 +57,12 @@ public class Player extends Entity {
     public void addEffect(Effect e){
         for(int i=0;i<effects.length;i++){
             if(effects[i]==null) {
-                e.setListPosition(i);
+                e.init(getStage(), i);
                 effects[i] = e;
                 return;
             }
         }
-        e.setListPosition(0);
+        e.init(getStage(), 0);
         effects[0]=e;
     }
     public void removeEffect(int i){

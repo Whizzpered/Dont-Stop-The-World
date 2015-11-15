@@ -166,13 +166,24 @@ public class GameStage extends Stage {
 
     @Override
     public void draw() {
+        int i = 0;
         super.draw();
         getBatch().begin();
         getFont().setColor(Color.WHITE);
-        getFont().draw(getBatch(), (int) (getPlayer().getVelocity().y / 10) + " kM/h", 10, 30);
         getFont().draw(getBatch(), String.valueOf(getPoints()), 10, 10);
-        if(gameOver)
-            getFont().draw(getBatch(), "GameOver",10, 50);
+        getFont().draw(getBatch(), (int) (getPlayer().getVelocity().y / 10) + " kM/h", 10, 30);
+        getFont().setColor(Color.YELLOW);
+        getFont().draw(getBatch(), getPlayer().health + " HP", 10, 50);
+        if (gameOver) {
+            getFont().setColor(Color.BLACK);
+            getFont().draw(getBatch(), "GameOver", 10, 70);
+        }
+
+        for (int j = 0; j < getPlayer().effects.length; j++){
+            if (getPlayer().effects[j] != null)
+                i++;
+    }
+        getFont().draw(getBatch(), i+"", 10, 70);
         getBatch().end();
     }
 }
