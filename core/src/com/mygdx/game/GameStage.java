@@ -16,15 +16,9 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.objects.Entity;
-import com.mygdx.game.objects.Moon;
-import com.mygdx.game.objects.Obstacle;
-import com.mygdx.game.objects.Player;
-import com.mygdx.game.objects.Robot;
+import com.mygdx.game.objects.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.mygdx.game.events.Event;
-import com.mygdx.game.events.EventHandler;
-import com.mygdx.game.events.EventParachuter;
+import com.mygdx.game.events.*;
 
 /**
  *
@@ -39,6 +33,7 @@ public class GameStage extends Stage {
     AssetManager asset;
     private TextureAtlas atlas;
     private BitmapFont font;
+    private Entity focus;
 
     public BitmapFont getFont() {
         return font;
@@ -80,9 +75,9 @@ public class GameStage extends Stage {
 
     private void initAssets() {
         asset = new AssetManager();
-        asset.load("TexturePack.pack", TextureAtlas.class);
+        asset.load("some.pack", TextureAtlas.class);
         asset.finishLoading();
-        atlas = asset.get("TexturePack.pack");
+        atlas = asset.get("some.pack");
         font = new BitmapFont(true);
     }
 
@@ -118,25 +113,33 @@ public class GameStage extends Stage {
         addEntity(new Moon(180, 190));
         pl = new Player(160, 0);
         addEntity(pl);
-        addEntity(new Robot(160, 0));
         setKeyboardFocus(pl);
         addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int we) {
+                if (focus == null) {
+                    double dist;
+                    for (Obstacle ob : getObstacles()) {
+                        dist = Math.sqrt(Math.pow(x - ob.getX(), 2) + Math.pow(y - ob.getSprite().getY(), 2));
+                        if (dist < ob.getSprite().getWidth() && ob.touchable) {
+                            focus = ob;
+                            break;
+                        }
+                    }
+                }
                 return true;
             }
 
             @Override
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
-                double dist;
-                for (Obstacle ob : getObstacles()) {
-                    dist = Math.sqrt(Math.pow(x - ob.getX(), 2) + Math.pow(y - ob.getSprite().getY(), 2));
-                    Gdx.app.log("Dragged", dist + "");
-                    if (dist < 3 * ob.getSprite().getWidth() / 4 && ob.touchable) {
-                        ob.setX(x);
-                        break;
-                    }
+                if (focus != null && focus.touchable) {
+                    focus.setX(x);
                 }
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int we) {
+                focus = null;
             }
         });
         addEntity(new Obstacle(120, 200));

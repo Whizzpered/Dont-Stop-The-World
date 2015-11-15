@@ -1,40 +1,40 @@
 
-unamed.png
+some.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 planet
   rotate: false
-  xy: 1, 45
+  xy: 1, 51
   size: 74, 74
   orig: 74, 74
   offset: 0, 0
   index: -1
 astronaut
   rotate: false
-  xy: 77, 39
+  xy: 77, 45
   size: 62, 80
   orig: 62, 80
   offset: 0, 0
   index: -1
 moon
   rotate: false
-  xy: 141, 57
+  xy: 141, 63
   size: 62, 62
   orig: 62, 62
   offset: 0, 0
   index: -1
 nlo
   rotate: false
-  xy: 1, 1
+  xy: 1, 7
   size: 68, 42
   orig: 68, 42
   offset: 0, 0
   index: -1
-robot
+nlo_damaged
   rotate: false
-  xy: 205, 87
-  size: 32, 32
-  orig: 32, 32
+  xy: 71, 1
+  size: 68, 42
+  orig: 68, 42
   offset: 0, 0
   index: -1

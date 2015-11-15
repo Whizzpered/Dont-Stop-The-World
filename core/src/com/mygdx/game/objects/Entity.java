@@ -8,8 +8,6 @@ package com.mygdx.game.objects;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
@@ -26,7 +24,7 @@ public class Entity extends Actor {
     protected Sprite sprite;
     Color c;
     Circle cl;
-    public boolean touchable = false;
+    public boolean touchable = false, background = false, used = false;
 
     public Sprite getSprite() {
         return sprite;
@@ -96,7 +94,7 @@ public class Entity extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         sprite.setCenterX(getX());
-        sprite.setCenterY(getY() - getStage().getPlayer().getY() + 160);
+        sprite.setCenterY(getY() - getStage().getPlayer().getY() + 60);
         sprite.draw(batch);
     }
 }

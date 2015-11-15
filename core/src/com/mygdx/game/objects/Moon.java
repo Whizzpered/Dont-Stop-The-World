@@ -14,6 +14,7 @@ public class Moon extends Entity {
     public Moon(float x, float y) {
         super(x, y);
         setName("moon");
+        background = true;
     }
 
     @Override
