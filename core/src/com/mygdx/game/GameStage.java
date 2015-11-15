@@ -136,7 +136,7 @@ public class GameStage extends Stage {
         addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int we) {
-                if (focus == null&&!gameOver) {
+                if (focus == null && !gameOver) {
                     double dist;
                     for (Obstacle ob : getObstacles()) {
                         dist = Math.sqrt(Math.pow(x - ob.getX(), 2) + Math.pow(y - ob.getSprite().getY(), 2));
@@ -151,7 +151,7 @@ public class GameStage extends Stage {
 
             @Override
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
-                if (focus != null && focus.touchable&&!gameOver) {
+                if (focus != null && focus.touchable && !gameOver) {
                     focus.setX(x);
                 }
             }
@@ -166,7 +166,6 @@ public class GameStage extends Stage {
 
     @Override
     public void draw() {
-        int i = 0;
         super.draw();
         getBatch().begin();
         getFont().setColor(Color.WHITE);
@@ -178,12 +177,6 @@ public class GameStage extends Stage {
             getFont().setColor(Color.BLACK);
             getFont().draw(getBatch(), "GameOver", 10, 70);
         }
-
-        for (int j = 0; j < getPlayer().effects.length; j++){
-            if (getPlayer().effects[j] != null)
-                i++;
-    }
-        getFont().draw(getBatch(), i+"", 10, 70);
         getBatch().end();
     }
 }
