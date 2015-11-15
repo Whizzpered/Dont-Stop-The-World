@@ -13,9 +13,8 @@ import com.badlogic.gdx.math.Vector2;
  * @author Whizzpered
  */
 public class Player extends Entity {
-
     boolean up = false;
-
+    private int DEATH_VELOCITY=800;
     public Player(float x, float y) {
         super(x, y);
         acceleration = new Vector2(0, 100);
@@ -32,6 +31,9 @@ public class Player extends Entity {
         super.act(delta);
         if (getVelocity().y > 100) {
             up = false;
+        }
+        if (velocity.y > DEATH_VELOCITY) {
+            getStage().setGameOver(true);
         }
     }
 

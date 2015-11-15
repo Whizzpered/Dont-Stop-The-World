@@ -69,9 +69,7 @@ public class Entity extends Actor {
     @Override
     public void act(float delta) {
         velocity.add(acceleration.cpy().scl(delta));
-        if (velocity.y > 500) {
-            velocity.y = 500;
-        }
+
         setX(getX() + velocity.cpy().scl(delta).x);
         setY(getY() + velocity.cpy().scl(delta).y);
         cl.set(getX(), getY(), getWidth() / 3);
