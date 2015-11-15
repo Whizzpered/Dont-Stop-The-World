@@ -27,7 +27,7 @@ import com.mygdx.game.events.*;
 public class GameStage extends Stage {
 
     private float points;
-
+    private float slowCoef =1f;
     private Player pl;
     private OrthographicCamera cam;
     AssetManager asset;
@@ -49,6 +49,9 @@ public class GameStage extends Stage {
 
     public int getPoints() {
         return (int) points;
+    }
+    public void setSlowCoef(float slowCoef) {
+        this.slowCoef = slowCoef;
     }
 
     public Array<Obstacle> getObstacles() {
@@ -88,14 +91,14 @@ public class GameStage extends Stage {
     }
 
     public void initEvents() {
-        Event parachuter = new EventParachuter();
+        Event slow= new EventSlowness();
     }
 
     @Override
-    public void act() {
-        super.act();
+    public void act(float delta) {
         EventHandler.act(this, 1);
-        points += (500 - pl.getVelocity().y) / 5000f;
+        super.act(delta / slowCoef);
+        points += (500 - pl.getVelocity().y) / 5000f / slowCoef;
         if (getObstacles().size < 3) {
             addEntity(new Obstacle(MyGdxGame.RANDOM.nextInt(260) + 30,
                     pl.getY() + 420 + MyGdxGame.RANDOM.nextInt(100)));
