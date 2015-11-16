@@ -41,7 +41,7 @@ public class Player extends Entity {
         if (velocity.y > DEATH_VELOCITY) {
            health=0;
         }
-        if(health<0){
+        if(health<=0){
             getStage().setGameOver(true);
         }
         for (Effect e: effects){
