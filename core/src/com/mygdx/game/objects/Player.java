@@ -7,6 +7,7 @@ package com.mygdx.game.objects;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.effects.Effect;
 
 /**
  *
@@ -14,7 +15,8 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class Player extends Entity {
     boolean up = false;
-    private int DEATH_VELOCITY=800;
+    private final int DEATH_VELOCITY=680;
+    private Effect[] effects=new Effect[10];
     public Player(float x, float y) {
         super(x, y);
         acceleration = new Vector2(0, 100);
@@ -41,7 +43,20 @@ public class Player extends Entity {
     public void action() {
 
     }
-
+    public void addEffect(Effect e){
+        for(int i=0;i<effects.length;i++){
+            if(effects[i]==null) {
+                e.setListPosition(i);
+                effects[i] = e;
+                return;
+            }
+        }
+        e.setListPosition(0);
+        effects[0]=e;
+    }
+    public void removeEffect(int i){
+        effects[i]=null;
+    }
     public void touchLeft() {
         velocity.x = -250;
     }
