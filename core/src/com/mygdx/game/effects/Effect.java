@@ -12,19 +12,25 @@ import com.mygdx.game.objects.Entity;
  *
  * @author Whizzpered
  */
-public class Effect  {
+public class Effect {
+
     private int listPosition;
     private GameStage stage;
+
     public Effect(GameStage stage) {
-        this.stage=stage;
+        this.stage = stage;
     }
-    public void apply(){}
 
-    public void act(float delta){}
+    public void apply() {
+    }
 
-    public  void dispose(){
+    public void act(float delta) {
+    }
+
+    public void dispose() {
         stage.getPlayer().removeEffect(listPosition);
     }
+
     public void setListPosition(int listPosition) {
         this.listPosition = listPosition;
     }
