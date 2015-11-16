@@ -4,7 +4,7 @@ package com.mygdx.game.objects;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.effects.Effect;
-import com.mygdx.game.effects.Effects;
+import com.mygdx.game.effects.EffectsList;
 
 import java.util.Random;
 
@@ -21,7 +21,7 @@ public class Obstacle extends Entity {
         setName("nlo");
         velocity.x = MyGdxGame.RANDOM.nextBoolean() ? -50 : 50;
         if(new Random().nextInt(100)<20){
-            effect= Effects.getRandomEffect();
+            effect= EffectsList.getRandomEffect();
         }
     }
 

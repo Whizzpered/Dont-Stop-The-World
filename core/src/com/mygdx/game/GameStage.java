@@ -19,8 +19,6 @@ import com.mygdx.game.objects.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.mygdx.game.events.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  *
