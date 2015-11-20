@@ -1,6 +1,7 @@
 package com.mygdx.game.objects;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.effects.Effect;
 import com.mygdx.game.effects.EffectsList;
@@ -63,9 +64,10 @@ public class Obstacle extends Entity {
     public void draw(Batch batch, float alpha) {
         super.draw(batch, alpha);
         if (effect != null) {
-            sprite.setCenterX(getX());
-            getStage().getFont().draw(getStage().getBatch(), effect.getName(), getX() - 10,
-                    getY() - getStage().getPlayer().getY() + 15);
+            Sprite buffSprite = getStage().getAtlas().createSprite("buff");
+            buffSprite.setFlip(false, true);
+            buffSprite.setCenter(getX(), getY() - getStage().getPlayer().getY() + 60);
+            buffSprite.draw(batch);
         }
     }
 }
