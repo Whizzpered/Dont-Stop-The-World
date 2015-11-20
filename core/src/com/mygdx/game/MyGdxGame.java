@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import java.util.Random;
 
 public class MyGdxGame extends ApplicationAdapter {
+
     public static final Random RANDOM = new Random();
     private GameStage stage;
 
@@ -23,11 +24,6 @@ public class MyGdxGame extends ApplicationAdapter {
 
     @Override
     public void render() {
-        float c = Math.max(0, stage.getPlayer().getVelocity().y - 200) / 500;
-        if(!stage.changeEventColor)
-           Gdx.gl.glClearColor(c, (1f - c) *0.3f,(1f - c)*0.3f, 1f);
-        else   Gdx.gl.glClearColor(c, (1f - c) * 0.3f, (1f - c)*0.1f, 1f);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.draw();
         stage.act();
     }

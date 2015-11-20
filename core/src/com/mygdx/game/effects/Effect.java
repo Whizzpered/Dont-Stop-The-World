@@ -18,6 +18,7 @@ public class Effect {
 
     private String name;
     protected GameStage stage;
+
     public String getName() {
         return name;
     }
@@ -40,7 +41,8 @@ public class Effect {
             dispose();
         }
     }
-    public  void dispose(){
+
+    public void dispose() {
         stage.getPlayer().removeEffect(listPosition);
     }
 }
