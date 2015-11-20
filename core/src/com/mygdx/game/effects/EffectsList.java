@@ -1,5 +1,7 @@
 package com.mygdx.game.effects;
 
+import com.badlogic.gdx.graphics.Color;
+
 import java.util.Random;
 
 /**
@@ -7,7 +9,7 @@ import java.util.Random;
  */
 public class EffectsList {
     private final static Effect[] avialibleEffects=new Effect[]{
-        new Effect(1,"Health",1){
+        new Effect(1,"Health",1, Color.RED){
             @Override
             public void apply(){
                 if(stage.getPlayer().health<Short.MAX_VALUE)

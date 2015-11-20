@@ -66,6 +66,7 @@ public class Obstacle extends Entity {
         if (effect != null) {
             Sprite buffSprite = getStage().getAtlas().createSprite("buff");
             buffSprite.setFlip(false, true);
+            buffSprite.setColor(effect.getColor());
             buffSprite.setCenter(getX(), getY() - getStage().getPlayer().getY() + 60);
             buffSprite.draw(batch);
         }
