@@ -5,8 +5,10 @@
  */
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -18,7 +20,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.objects.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.mygdx.game.events.*;
-
 
 /**
  *
@@ -46,7 +47,6 @@ public class GameStage extends Stage {
     }
 
     //list of Events that are currently working
-
     public BitmapFont getFont() {
         return font;
     }
@@ -91,9 +91,9 @@ public class GameStage extends Stage {
 
     private void initAssets() {
         asset = new AssetManager();
-        asset.load("some.pack", TextureAtlas.class);
+        asset.load("pack.pack", TextureAtlas.class);
         asset.finishLoading();
-        atlas = asset.get("some.pack");
+        atlas = asset.get("pack.pack");
         font = new BitmapFont(true);
     }
 
@@ -166,6 +166,13 @@ public class GameStage extends Stage {
 
     @Override
     public void draw() {
+        float c = Math.max(0, getPlayer().getVelocity().y - 200) / 500;
+        if (!changeEventColor) {
+            Gdx.gl.glClearColor(c, (1f - c) * 0.3f, (1f - c) * 0.3f, 1f);
+        } else {
+            Gdx.gl.glClearColor(0.4f, 0.8f, 0f, 0.7f);//204.204.0
+        }
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         super.draw();
         getBatch().begin();
         getFont().setColor(Color.WHITE);

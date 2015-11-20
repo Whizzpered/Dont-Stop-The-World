@@ -1,6 +1,5 @@
 package com.mygdx.game.objects;
 
-
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.effects.Effect;
@@ -13,15 +12,17 @@ import java.util.Random;
  * @author Whizzpered
  */
 public class Obstacle extends Entity {
-    private int DEATH_VELOCITY=560;
+
+    private int DEATH_VELOCITY = 560;
     private Effect effect;
+
     public Obstacle(float x, float y) {
         super(x, y);
         touchable = true;
         setName("nlo");
         velocity.x = MyGdxGame.RANDOM.nextBoolean() ? -50 : 50;
-        if(new Random().nextInt(100)<20){
-            effect= EffectsList.getRandomEffect();
+        if (new Random().nextInt(100) < 20) {
+            effect = EffectsList.getRandomEffect();
         }
     }
 
@@ -32,8 +33,8 @@ public class Obstacle extends Entity {
             getStage().getActors().removeValue(this, true);
         }
         if (!used && collides(getStage().getPlayer())) {
-            if(getStage().getPlayer().getVelocity().y>DEATH_VELOCITY){
-               getStage().getPlayer().health-=1;
+            if (getStage().getPlayer().getVelocity().y > DEATH_VELOCITY) {
+                getStage().getPlayer().health -= 1;
             }
             action();
         }
@@ -51,18 +52,20 @@ public class Obstacle extends Entity {
         velocity.x = getX() - getStage().getPlayer().getX();
         touchable = false;
         used = true;
-        if(effect!=null)
+        if (effect != null) {
             getStage().getPlayer().addEffect(effect);
+        }
         sprite = getStage().getAtlas().createSprite("nlo_damaged");
         sprite.setFlip(false, true);
     }
+
     @Override
-     public void draw(Batch batch, float alpha) {
-        super.draw(batch,alpha);
-        if(effect!=null) {
+    public void draw(Batch batch, float alpha) {
+        super.draw(batch, alpha);
+        if (effect != null) {
             sprite.setCenterX(getX());
-            getStage().getFont().draw(getStage().getBatch(), effect.getName(), getX()-25,
-                                         getY() - getStage().getPlayer().getY()+20);
+            getStage().getFont().draw(getStage().getBatch(), effect.getName(), getX() - 10,
+                    getY() - getStage().getPlayer().getY() + 15);
         }
     }
 }
