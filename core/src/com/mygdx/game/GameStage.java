@@ -110,7 +110,6 @@ public class GameStage extends Stage {
 
     public void initEvents() {
         Event slow = new EventSlowness();
-
     }
 
     @Override

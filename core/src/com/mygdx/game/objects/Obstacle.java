@@ -24,6 +24,7 @@ public class Obstacle extends Entity {
         velocity.x = MyGdxGame.RANDOM.nextBoolean() ? -50 : 50;
         if (new Random().nextInt(100) < 20) {
             effect = EffectsList.getRandomEffect();
+            effect.init(getStage());
         }
     }
 
