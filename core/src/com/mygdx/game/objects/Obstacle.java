@@ -1,12 +1,12 @@
 package com.mygdx.game.objects;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.effects.Effect;
 import com.mygdx.game.effects.EffectsList;
 
 import java.util.Random;
+
 
 /**
  *
@@ -15,19 +15,21 @@ import java.util.Random;
 public class Obstacle extends Entity {
 
     private int DEATH_VELOCITY = 560;
-    private Effect effect;
+    private Effect effect=null;
 
     public Obstacle(float x, float y) {
         super(x, y);
         touchable = true;
         setName("nlo");
         velocity.x = MyGdxGame.RANDOM.nextBoolean() ? -50 : 50;
+    }
+
+    public void init() {
         if (new Random().nextInt(100) < 20) {
             effect = EffectsList.getRandomEffect();
             effect.init(getStage());
         }
     }
-
     @Override
     public void act(float delta) {
         super.act(delta);
@@ -64,7 +66,7 @@ public class Obstacle extends Entity {
     @Override
     public void draw(Batch batch, float alpha) {
         super.draw(batch, alpha);
-        if (effect != null) {
+        if (effect != null && !used) {
             effect.getSprite().setCenter(getX(), getY() - getStage().getPlayer().getY() + 60);
             effect.getSprite().draw(batch);
         }

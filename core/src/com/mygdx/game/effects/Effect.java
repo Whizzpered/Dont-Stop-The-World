@@ -48,10 +48,9 @@ public class Effect {
 
     public void init(GameStage stage) {
         this.stage = stage;
-        sprite = stage.getAtlas().createSprite("buff");
-        sprite.setFlip(false, true);
-        sprite.setColor(getColor());
-        apply();
+            sprite = stage.getAtlas().createSprite("buff");
+            sprite.setFlip(false, true);
+            sprite.setColor(getColor());
     }
 
     public void apply() {
