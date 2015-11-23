@@ -23,7 +23,6 @@ public class Player extends Entity {
         super(x, y);
         acceleration = new Vector2(0, 100);
         c = new Color(Color.BLUE);
-
     }
 
     public void up() {
@@ -51,7 +50,6 @@ public class Player extends Entity {
 
     @Override
     public void action() {
-
     }
     public void addEffect(Effect e){
         e.apply();
