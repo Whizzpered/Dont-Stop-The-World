@@ -54,7 +54,7 @@ public class Player extends Entity {
 
     }
     public void addEffect(Effect e){
-        e.apply();
+        e.init(getStage());
         effects[e.getListPosition()] = e;
     }
     public void removeEffect(int i){

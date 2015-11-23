@@ -60,6 +60,7 @@ public class Entity extends Actor {
     }
 
     public void init() {
+
     }
 
     public void setSprite() {
