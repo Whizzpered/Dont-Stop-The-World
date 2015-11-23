@@ -130,6 +130,7 @@ public class GameStage extends Stage {
 
     public void addEntity(Entity ent) {
         addActor(ent);
+        ent.init();
         ent.setSprite();
     }
     

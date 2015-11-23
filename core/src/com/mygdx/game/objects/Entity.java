@@ -59,6 +59,10 @@ public class Entity extends Actor {
         setName("astronaut");
     }
 
+    public void init() {
+
+    }
+
     public void setSprite() {
         sprite = getStage().getAtlas().createSprite(getName());
         sprite.setFlip(false, true);

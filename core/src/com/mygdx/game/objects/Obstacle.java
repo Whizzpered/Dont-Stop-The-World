@@ -22,9 +22,14 @@ public class Obstacle extends Entity {
         touchable = true;
         setName("nlo");
         velocity.x = MyGdxGame.RANDOM.nextBoolean() ? -50 : 50;
+        
+    }
+    
+    @Override
+    public void init() {
         if (new Random().nextInt(100) < 20) {
             effect = EffectsList.getRandomEffect();
-            effect.init(getStage());
+            effect.init(getStage()); 
         }
     }
 
@@ -65,6 +70,7 @@ public class Obstacle extends Entity {
     public void draw(Batch batch, float alpha) {
         super.draw(batch, alpha);
         if (effect != null) {
+            
             effect.getSprite().setCenter(getX(), getY() - getStage().getPlayer().getY() + 60);
             effect.getSprite().draw(batch);
         }
