@@ -20,6 +20,9 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.objects.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.mygdx.game.events.*;
+import com.mygdx.gui.Element;
+import com.mygdx.gui.GUILayer;
+import com.mygdx.gui.GUIUtils;
 
 /**
  *
@@ -27,6 +30,7 @@ import com.mygdx.game.events.*;
  */
 public class GameStage extends Stage {
 
+    private GUILayer layer = new GUILayer();
     private float points;
     private float slowCoef = 1f;
     private Player pl;
@@ -86,6 +90,7 @@ public class GameStage extends Stage {
         initAssets();
         initCam();
         initEntities();
+        initGUI();
         initEvents();
     }
 
@@ -93,7 +98,7 @@ public class GameStage extends Stage {
         asset = new AssetManager();
         asset.load("pack.pack", TextureAtlas.class);
         asset.finishLoading();
-        atlas = asset.get("pack.pack");
+        atlas = GUIUtils.GUI_ATLAS = asset.get("pack.pack");
         font = new BitmapFont(true);
     }
 
@@ -121,11 +126,22 @@ public class GameStage extends Stage {
                         pl.getY() + 580 + MyGdxGame.RANDOM.nextInt(100)));
             }
         }
+        layer.act(delta);
     }
 
     public void addEntity(Entity ent) {
         addActor(ent);
         ent.setSprite();
+    }
+    
+    public void initGUI(){
+        layer.add(new Element("nlo", 10, 10, 64, 64) {
+            
+            @Override
+            public void tap() {
+                System.out.println("Hello");
+            }
+        });
     }
 
     public void initEntities() {
@@ -159,6 +175,7 @@ public class GameStage extends Stage {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int we) {
                 focus = null;
+                layer.tapHandleCrutch_up(event, x, y, pointer, we);
             }
         });
         addEntity(new Obstacle(120, 200));
@@ -184,6 +201,7 @@ public class GameStage extends Stage {
             getFont().setColor(Color.BLACK);
             getFont().draw(getBatch(), "GameOver", 10, 70);
         }
+        layer.draw(getBatch(), 1);
         getBatch().end();
     }
 }
