@@ -69,8 +69,7 @@ public class Obstacle extends Entity {
     @Override
     public void draw(Batch batch, float alpha) {
         super.draw(batch, alpha);
-        if (effect != null) {
-            
+        if (effect != null && !used) {
             effect.getSprite().setCenter(getX(), getY() - getStage().getPlayer().getY() + 60);
             effect.getSprite().draw(batch);
         }
