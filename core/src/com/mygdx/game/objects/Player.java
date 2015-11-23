@@ -51,7 +51,6 @@ public class Player extends Entity {
 
     @Override
     public void action() {
-
     }
     public void addEffect(Effect e){
         e.apply();
