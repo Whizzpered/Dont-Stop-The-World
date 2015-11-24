@@ -51,8 +51,8 @@ public abstract class Element {
     }
 
     public void draw(Batch batch, float parentAlpha) {
-        sprite.setX(x);
-        sprite.setY(y);
+        sprite.setCenterX(x);
+        sprite.setCenterY(y);
         sprite.setSize(width, height);
         sprite.draw(batch, parentAlpha);
     }
