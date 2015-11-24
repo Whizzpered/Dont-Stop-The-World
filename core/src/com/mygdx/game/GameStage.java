@@ -24,6 +24,8 @@ import com.mygdx.gui.Element;
 import com.mygdx.gui.GUILayer;
 import com.mygdx.gui.GUIUtils;
 
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author Whizzpered
@@ -33,6 +35,7 @@ public class GameStage extends Stage {
     private GUILayer layer = new GUILayer();
     private float points;
     private float slowCoef = 1f;
+    private InputListener touchListener;
     private Player pl;
     private OrthographicCamera cam;
     AssetManager asset;
@@ -40,14 +43,18 @@ public class GameStage extends Stage {
     private BitmapFont font;
     private Entity focus;
     public boolean changeEventColor = false;
-    private boolean gameOver = false;
+    private boolean gameOver = false, paused = false;
 
-    public boolean isGameOver() {
-        return gameOver;
+    public boolean isGameOverOrPaused() {
+        return gameOver || paused;
     }
 
     public void setGameOver(boolean gameover) {
         gameOver = gameover;
+        removeListener(touchListener);
+    }
+    public void setPaused (boolean paused){
+        this.paused = paused;
     }
 
     //list of Events that are currently working
@@ -116,7 +123,7 @@ public class GameStage extends Stage {
 
     @Override
     public void act(float delta) {
-        if (!gameOver) {
+        if (!isGameOverOrPaused()) {
             EventHandler.act(this, 1);
             super.act(delta / slowCoef);
             points += (500 - pl.getVelocity().y) / 5000f / slowCoef;
@@ -151,10 +158,15 @@ public class GameStage extends Stage {
         pl = new Player(160, 0);
         addEntity(pl);
         setKeyboardFocus(pl);
-        addListener(new InputListener() {
+        touchListener=createListener();
+        addListener(touchListener);
+        addEntity(new Obstacle(120, 200));
+    }
+    private InputListener createListener(){
+        return new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int we) {
-                if (focus == null && !gameOver) {
+                if (focus == null) {
                     double dist;
                     for (Obstacle ob : getObstacles()) {
                         dist = Math.sqrt(Math.pow(x - ob.getX(), 2) + Math.pow(y - ob.getSprite().getY(), 2));
@@ -169,7 +181,7 @@ public class GameStage extends Stage {
 
             @Override
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
-                if (focus != null && focus.touchable && !gameOver) {
+                if (focus != null && focus.touchable) {
                     focus.setX(x);
                 }
             }
@@ -179,8 +191,7 @@ public class GameStage extends Stage {
                 focus = null;
                 layer.tapHandleCrutch_up(event, x, y, pointer, we);
             }
-        });
-        addEntity(new Obstacle(120, 200));
+        };
     }
 
     @Override
@@ -199,10 +210,6 @@ public class GameStage extends Stage {
         getFont().draw(getBatch(), (int) (getPlayer().getVelocity().y / 10) + " kM/h", 10, 30);
         getFont().setColor(Color.YELLOW);
         getFont().draw(getBatch(), getPlayer().health + " HP", 10, 50);
-        if (gameOver) {
-            getFont().setColor(Color.BLACK);
-            getFont().draw(getBatch(), "GameOver", 10, 70);
-        }
         layer.draw(getBatch(), 1);
         getBatch().end();
     }
