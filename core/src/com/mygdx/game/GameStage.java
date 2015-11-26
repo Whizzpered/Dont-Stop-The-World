@@ -32,6 +32,7 @@ import java.awt.event.ActionListener;
  */
 public class GameStage extends Stage {
 
+    public MenuStage menu;
     private GUILayer layer = new GUILayer();
     private float points;
     private float slowCoef = 1f;
@@ -88,8 +89,9 @@ public class GameStage extends Stage {
         return ob;
     }
 
-    public GameStage(Viewport vp) {
+    public GameStage(Viewport vp, MenuStage menu) {
         super(vp);
+        this.menu = menu;
         initialize();
     }
 
@@ -102,19 +104,15 @@ public class GameStage extends Stage {
     }
 
     private void initAssets() {
-        asset = new AssetManager();
-        asset.load("pack.pack", TextureAtlas.class);
-        asset.load("gui.pack", TextureAtlas.class);
-        asset.finishLoading();
+        asset = menu.asset;
         atlas = asset.get("pack.pack");
-        GUIUtils.GUI_ATLAS = asset.get("gui.pack");
         font = new BitmapFont(true);
     }
 
     public void initCam() {
         cam = new OrthographicCamera();
         cam.setToOrtho(true);
-        getViewport().setCamera(cam);
+        getViewport().setCamera(cam);   
     }
 
     public void initEvents() {
@@ -145,10 +143,10 @@ public class GameStage extends Stage {
 
     public void initGUI() {
         layer.add(new Element("Pause", 298, 13, 52, 29) {
-
             @Override
             public void tap() {
-                System.out.println("Hello");
+                menu.getGame().stage = menu;
+                Gdx.input.setInputProcessor(menu);
             }
         });
     }

@@ -2,18 +2,19 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import java.util.Random;
 
 public class MyGdxGame extends ApplicationAdapter {
 
     public static final Random RANDOM = new Random();
-    private GameStage stage;
+    public Stage stage;
+    private MenuStage menu;
 
     @Override
     public void create() {
-        stage = new GameStage(new StretchViewport(320, 480));
+        stage = menu = new MenuStage(new StretchViewport(320, 480), this);
         Gdx.input.setInputProcessor(stage);
     }
 
