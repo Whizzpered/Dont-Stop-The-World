@@ -25,7 +25,6 @@ public class MenuStage extends Stage {
     private GameStage gameStage;
     private MenuStage thisClass = this;
     private MyGdxGame game;
-    private OrthographicCamera cam;
     private GUILayer layer = new GUILayer();
     AssetManager asset;
     private TextureAtlas atlas;
@@ -47,7 +46,6 @@ public class MenuStage extends Stage {
         super(vp);
         this.game = game;
         initAssets();
-        initCam();
         initGUI();
         addListener(new InputListener() {
             @Override
@@ -61,12 +59,6 @@ public class MenuStage extends Stage {
                 layer.tapHandleCrutch_up(event, x, y, pointer, we);
             }
         });
-    }
-
-    public void initCam() {
-        cam = new OrthographicCamera();
-        cam.setToOrtho(true);
-        getViewport().setCamera(cam);
     }
     
     private void initAssets() {
@@ -88,7 +80,7 @@ public class MenuStage extends Stage {
             @Override
             public void tap() {
                 if (gameStage == null) {
-                    gameStage = new GameStage(getViewport(), thisClass);
+                    gameStage = new GameStage(game.vp, thisClass);
                 }
                 game.stage = gameStage;
                 Gdx.input.setInputProcessor(gameStage);
