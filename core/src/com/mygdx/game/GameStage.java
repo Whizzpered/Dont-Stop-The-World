@@ -22,9 +22,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.mygdx.game.events.*;
 import com.mygdx.gui.Element;
 import com.mygdx.gui.GUILayer;
-import com.mygdx.gui.GUIUtils;
-
-import java.awt.event.ActionListener;
 
 /**
  *
@@ -38,7 +35,6 @@ public class GameStage extends Stage {
     private float slowCoef = 1f;
     private InputListener touchListener;
     private Player pl;
-    private OrthographicCamera cam;
     AssetManager asset;
     private TextureAtlas atlas;
     private BitmapFont font;
@@ -97,7 +93,6 @@ public class GameStage extends Stage {
 
     public void initialize() {
         initAssets();
-        initCam();
         initEntities();
         initGUI();
         initEvents();
@@ -107,12 +102,6 @@ public class GameStage extends Stage {
         asset = menu.asset;
         atlas = asset.get("pack.pack");
         font = new BitmapFont(true);
-    }
-
-    public void initCam() {
-        cam = new OrthographicCamera();
-        cam.setToOrtho(true);
-        getViewport().setCamera(cam);   
     }
 
     public void initEvents() {
