@@ -56,10 +56,12 @@ public class GUILayer extends ArrayList<Element> {
         }
 
         if (elem != null) {
-            if (x >= elem.getX()
-                    && y >= elem.getY()
-                    && x <= elem.getX() + elem.getWidth()
-                    && y <= elem.getY() + elem.getHeight()) {
+            System.out.println((x - elem.getX() - elem.getWidth()/2) + " " + (y - elem.getY() - elem.getHeight()/2));
+            if (x >= elem.getX() - elem.getWidth()
+                    && y >= elem.getY() - elem.getHeight()
+                    && x <= elem.getX() + elem.getWidth()/2
+                    && y <= elem.getY() + elem.getHeight()/4) {
+
                 elem.tap();
             }
         }
