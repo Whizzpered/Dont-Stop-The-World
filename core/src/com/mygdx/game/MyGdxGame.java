@@ -20,7 +20,7 @@ public class MyGdxGame extends ApplicationAdapter {
         cam.setToOrtho(true);
         vp = new StretchViewport(320, 480, cam);
         menu = new MenuStage(vp, this);
-        stage = new GameStage(vp, menu);
+        stage = menu;
         Gdx.input.setInputProcessor(stage);
     }
 
