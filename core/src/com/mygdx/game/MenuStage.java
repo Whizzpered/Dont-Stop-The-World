@@ -60,18 +60,19 @@ public class MenuStage extends Stage {
             }
         });
     }
-    
+
     private void initAssets() {
         asset = new AssetManager();
         asset.load("pack.pack", TextureAtlas.class);
         asset.load("gui.pack", TextureAtlas.class);
         asset.finishLoading();
         GUIUtils.GUI_ATLAS = asset.get("gui.pack");
-        font = new BitmapFont();
+        font = new BitmapFont(true);
     }
 
     @Override
     public void act(float delta) {
+        super.act(delta);
         layer.act(delta);
     }
 
@@ -92,6 +93,7 @@ public class MenuStage extends Stage {
     public void draw() {
         Gdx.gl.glClearColor(0f, 0.3f, 0.3f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        super.draw();
         getBatch().begin();
         if (gameStage != null) {
             getFont().draw(getBatch(), "Score:" + gameStage.getPoints(), 120, 200);

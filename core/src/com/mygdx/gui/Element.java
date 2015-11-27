@@ -35,6 +35,7 @@ public abstract class Element {
 
     public Element(String sprite, float x, float y, float width, float height) {
         this.sprite = GUIUtils.GUI_ATLAS.createSprite(sprite);
+        this.sprite.setFlip(false, true);
         setX(x);
         setY(y);
         setWidth(width);
