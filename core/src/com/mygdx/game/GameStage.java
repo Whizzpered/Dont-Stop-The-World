@@ -9,8 +9,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -30,6 +30,7 @@ import com.mygdx.gui.GUILayer;
 public class GameStage extends Stage {
 
     public MenuStage menu;
+    private ShapeRenderer shape;
     private GUILayer layer = new GUILayer();
     private float points;
     private float slowCoef = 1f;
@@ -88,6 +89,7 @@ public class GameStage extends Stage {
     public GameStage(Viewport vp, MenuStage menu) {
         super(vp);
         this.menu = menu;
+        shape=new ShapeRenderer();
         initialize();
     }
 
@@ -131,6 +133,7 @@ public class GameStage extends Stage {
     }
 
     public void initGUI() {
+
         layer.add(new Element("Pause", 298, 13, 52, 29) {
             @Override
             public void tap() {
@@ -193,11 +196,15 @@ public class GameStage extends Stage {
         super.draw();
         getBatch().begin();
         getFont().setColor(Color.WHITE);
-        getFont().draw(getBatch(), String.valueOf(getPoints()), 10, 10);
+        getFont().draw(getBatch(),getPoints()+" Pts.", 10, 10);
         getFont().draw(getBatch(), (int) (getPlayer().getVelocity().y / 10) + " kM/h", 10, 30);
-        getFont().setColor(Color.YELLOW);
-        getFont().draw(getBatch(), getPlayer().health + " HP", 10, 50);
         layer.draw(getBatch(), 1);
         getBatch().end();
+        shape.begin(ShapeRenderer.ShapeType.Filled);
+        shape.setColor(new Color(0,0,0,0.1f));
+        shape.rectLine(319f, 1701f, 319f + 391f, 1701f, 42);
+        shape.setColor(Color.RED);
+        shape.rectLine(320f, 1700f, 320f + 390f * getPlayer().health / getPlayer().maxHealth, 1700f, 35);
+        shape.end();
     }
 }
