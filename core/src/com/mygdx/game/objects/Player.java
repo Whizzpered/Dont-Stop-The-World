@@ -16,7 +16,8 @@ import com.mygdx.game.effects.EffectsList;
  */
 public class Player extends Entity {
     boolean up = false;
-    public short health=4;
+    public short maxHealth=4;
+    public short health=maxHealth;
     private final int DEATH_VELOCITY=680;
     public Effect[] effects= new Effect[EffectsList.getAmount()];
     public Player(float x, float y) {
