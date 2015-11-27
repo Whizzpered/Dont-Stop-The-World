@@ -41,18 +41,14 @@ public class GameStage extends Stage {
     private BitmapFont font;
     private Entity focus;
     public boolean changeEventColor = false;
-    private boolean gameOver = false, paused = false;
+    private boolean gameOver = false;
 
-    public boolean isGameOverOrPaused() {
-        return gameOver || paused;
+    public boolean isGameOver() {
+        return gameOver;
     }
 
     public void setGameOver(boolean gameover) {
         gameOver = gameover;
-        removeListener(touchListener);
-    }
-    public void setPaused (boolean paused){
-        this.paused = paused;
     }
 
     //list of Events that are currently working
@@ -112,7 +108,7 @@ public class GameStage extends Stage {
 
     @Override
     public void act(float delta) {
-        if (!isGameOverOrPaused()) {
+        if (!isGameOver()) {
             EventHandler.act(this, 1);
             super.act(delta / slowCoef);
             points += (500 - pl.getVelocity().y) / 5000f / slowCoef;
@@ -156,7 +152,7 @@ public class GameStage extends Stage {
         return new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int we) {
-                if (focus == null) {
+                if (focus == null&&!gameOver) {
                     double dist;
                     for (Obstacle ob : getObstacles()) {
                         dist = Math.sqrt(Math.pow(x - ob.getX(), 2) + Math.pow(y - ob.getSprite().getY(), 2));
@@ -171,7 +167,7 @@ public class GameStage extends Stage {
 
             @Override
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
-                if (focus != null && focus.touchable) {
+                if (focus != null && focus.touchable&&!gameOver) {
                     focus.setX(x);
                 }
             }
