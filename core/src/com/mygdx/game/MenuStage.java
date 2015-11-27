@@ -90,19 +90,21 @@ public class MenuStage extends Stage {
                 Gdx.input.setInputProcessor(gameStage);
             }
         });
+        layer.add(new Element("Exit (1)", 160,  270, 104, 58) {
+            @Override
+            public void tap() {
+                gameStage = new GameStage(game.vp, thisClass);
+                game.stage=gameStage;
+                Gdx.input.setInputProcessor(gameStage);
+            }
+        });
         layer.add(new Element("Exit", 160, 340, 104, 58) {
             @Override
             public void tap() {
                 System.exit(0);
             }
         });
-        layer.add(new Element("Exit (1)", 160,270, 104, 58) {
-            @Override
-            public void tap() {
-                gameStage = new GameStage(game.vp, thisClass);
-                Gdx.input.setInputProcessor(gameStage);
-            }
-        });
+
     }
 
     @Override
