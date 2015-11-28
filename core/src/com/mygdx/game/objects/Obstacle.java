@@ -14,7 +14,6 @@ import java.util.Random;
  */
 public class Obstacle extends Entity {
 
-    private int DEATH_VELOCITY = 560;
     private Effect effect;
 
     public Obstacle(float x, float y) {
@@ -40,7 +39,7 @@ public class Obstacle extends Entity {
             getStage().getActors().removeValue(this, true);
         }
         if (!used && collides(getStage().getPlayer())) {
-            if (getStage().getPlayer().getVelocity().y > DEATH_VELOCITY) {
+            if (getStage().getPlayer().getVelocity().y > getStage().getPlayer().MAX_COLLIDE_VELOCITY) {
                 getStage().getPlayer().health -= 1;
             }
             action();

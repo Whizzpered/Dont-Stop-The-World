@@ -33,6 +33,7 @@ public class GameStage extends Stage {
     private ShapeRenderer shape;
     private GUILayer layer = new GUILayer();
     private float points;
+    public float pointCoef=5000f;
     private float slowCoef = 1f;
     private InputListener touchListener;
     private Player pl;
@@ -111,7 +112,7 @@ public class GameStage extends Stage {
         if (!isGameOver()) {
             EventHandler.act(this, 1);
             super.act(delta / slowCoef);
-            points += (500 - pl.getVelocity().y) / 5000f / slowCoef;
+            points += (500 - pl.getVelocity().y) / pointCoef / slowCoef;
             if (getObstacles().size < 3) {
                 addEntity(new Obstacle(MyGdxGame.RANDOM.nextInt(260) + 30,
                         pl.getY() + 420 + MyGdxGame.RANDOM.nextInt(100)));
@@ -190,17 +191,18 @@ public class GameStage extends Stage {
         }
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         super.draw();
+        shape.begin(ShapeRenderer.ShapeType.Filled);
+        shape.setColor(new Color(0,0,0,0.1f));
+        shape.rectLine(135f, 930f, 135f + 271f, 930f, 32);
+        shape.setColor(Color.RED);
+        shape.rectLine(136f, 930f, 136f + 270f * getPlayer().health / getPlayer().maxHealth, 930f, 25);
+        shape.end();
         getBatch().begin();
         getFont().setColor(Color.WHITE);
-        getFont().draw(getBatch(),getPoints()+" Pts.", 10, 10);
+        getFont().draw(getBatch(), getPoints() + " Pts.", 10, 10);
         getFont().draw(getBatch(), (int) (getPlayer().getVelocity().y / 10) + " kM/h", 10, 30);
         layer.draw(getBatch(), 1);
         getBatch().end();
-        shape.begin(ShapeRenderer.ShapeType.Filled);
-        shape.setColor(new Color(0,0,0,0.1f));
-        shape.rectLine(319f, 1701f, 319f + 391f, 1701f, 42);
-        shape.setColor(Color.RED);
-        shape.rectLine(320f, 1700f, 320f + 390f * getPlayer().health / getPlayer().maxHealth, 1700f, 35);
-        shape.end();
+
     }
 }
