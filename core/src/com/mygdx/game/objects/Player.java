@@ -18,17 +18,19 @@ public class Player extends Entity {
     boolean up = false;
     public short maxHealth=4;
     public short health=maxHealth;
-    private final int DEATH_VELOCITY=680;
+    public float accelAbsolute =100f;
+    public int DEATH_VELOCITY=680;
+    public int MAX_COLLIDE_VELOCITY = 560;
     public Effect[] effects= new Effect[EffectsList.getAmount()];
     public Player(float x, float y) {
         super(x, y);
-        acceleration = new Vector2(0, 100);
+        acceleration = new Vector2(0, accelAbsolute);
         c = new Color(Color.BLUE);
     }
 
     public void up() {
         up = true;
-        getVelocity().y = -100;
+        getVelocity().y = -accelAbsolute;
     }
 
     @Override
@@ -53,8 +55,13 @@ public class Player extends Entity {
     public void action() {
     }
     public void addEffect(Effect e){
+        int a=e.getListPosition();
+        if(effects[a]!=null){
+            effects[a].dispose();
+        }
+        effects[a] = e;
         e.apply();
-        effects[e.getListPosition()] = e;
+
     }
     public void removeEffect(int i){
         effects[i]=null;

@@ -16,7 +16,7 @@ import com.mygdx.game.GameStage;
 public class Effect {
 
     protected double time;
-    protected static final int TICKS_PER_SEC = 250;
+    protected static final int TICKS_PER_SEC = 120;
     protected int listPosition;
     private Color color;
     private String name;
