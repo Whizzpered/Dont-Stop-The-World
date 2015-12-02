@@ -14,7 +14,7 @@ public class EffectsList {
             public void apply(){
                 if(stage.getPlayer().health<stage.getPlayer().maxHealth)
                     stage.getPlayer().health+=1;
-                time=-1;
+                currrentTime =-1;
             }
             @Override
             public void dispose(){
@@ -40,6 +40,14 @@ public class EffectsList {
                 public void act(float delta){
                     super.act(delta);
                 }
+                 @Override
+                  public void draw(){
+                     stage.getBatch().begin();
+                     stage.getFont().setColor(this.getColor());
+                     stage.getFont().draw(stage.getBatch(), "X2", 70, 10);
+                     stage.getBatch().end();
+                  }
+
         },
             new Effect(10,"Decrease_velocity",3, Color.ORANGE){
                 float a;
@@ -57,20 +65,23 @@ public class EffectsList {
                 public void act(float delta){
                     super.act(delta);
                 }
+                @Override
+                public void draw(){
+                    stage.getBatch().begin();
+                    stage.getFont().setColor(this.getColor());
+                    stage.getFont().draw(stage.getBatch(),"/2" , 70, 30);
+                    stage.getBatch().end();
+                }
             },
             new Effect(10,"Invincible",4, Color.DARK_GRAY){
-                int coll,death;
                 @Override
                 public void apply(){
-                    coll=stage.getPlayer().MAX_COLLIDE_VELOCITY;
-                    death=stage.getPlayer().DEATH_VELOCITY;
-                    stage.getPlayer().DEATH_VELOCITY=stage.getPlayer().MAX_COLLIDE_VELOCITY=99999;
+                    stage.getPlayer().invincible=true;
                 }
                 @Override
                 public void dispose(){
                     super.dispose();
-                    stage.getPlayer().DEATH_VELOCITY=death;
-                    stage.getPlayer().MAX_COLLIDE_VELOCITY=coll;
+                    stage.getPlayer().invincible=false;
                 }
                 @Override
                 public void act(float delta){

@@ -15,8 +15,8 @@ import com.mygdx.game.GameStage;
  */
 public class Effect {
 
-    protected double time;
-    protected static final int TICKS_PER_SEC = 120;
+    protected double currrentTime, defaultTime;
+    protected static final int TICKS_PER_SEC = 100;
     protected int listPosition;
     private Color color;
     private String name;
@@ -39,9 +39,9 @@ public class Effect {
         return listPosition;
     }
 
-    public Effect(double time, String name, int listPosition, Color color) {
+    public Effect(double currrentTime, String name, int listPosition, Color color) {
         this.name = name;
-        this.time = time * TICKS_PER_SEC;
+        this.currrentTime =defaultTime= currrentTime * TICKS_PER_SEC;
         this.listPosition = listPosition;
         this.color = color;
     }
@@ -57,13 +57,16 @@ public class Effect {
     }
 
     public void act(float delta) {
-        time -= delta;
-        if (time <= 0) {
+        currrentTime -= delta;
+        if (currrentTime <= 0) {
             dispose();
         }
     }
+    public void draw(){
 
+    }
     public void dispose() {
         stage.getPlayer().removeEffect(listPosition);
+        currrentTime = defaultTime;
     }
 }
