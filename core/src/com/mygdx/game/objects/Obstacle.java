@@ -15,7 +15,7 @@ import java.util.Random;
 public class Obstacle extends Entity {
 
     private Effect effect;
-
+    private Player pl;
     public Obstacle(float x, float y) {
         super(x, y);
         touchable = true;
@@ -30,17 +30,18 @@ public class Obstacle extends Entity {
             effect = EffectsList.getRandomEffect();
             effect.init(getStage()); 
         }
+        pl=getStage().getPlayer();
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
-        if (getY() - getStage().getPlayer().getY() < -200) {
+        if (getY() - pl.getY() < -200) {
             getStage().getActors().removeValue(this, true);
         }
-        if (!used && collides(getStage().getPlayer())) {
-            if (getStage().getPlayer().getVelocity().y > getStage().getPlayer().MAX_COLLIDE_VELOCITY) {
-                getStage().getPlayer().health -= 1;
+        if (!used && collides(pl)) {
+            if (pl.getVelocity().y > pl.MAX_COLLIDE_VELOCITY&&!pl.invincible) {
+                pl.health -= 1;
             }
             action();
         }
@@ -51,15 +52,15 @@ public class Obstacle extends Entity {
 
     @Override
     public void action() {
-        velocity.y = getStage().getPlayer().getVelocity().y / 2;
+        velocity.y = pl.getVelocity().y / 2;
         acceleration.y = 100;
-        getStage().getPlayer().getVelocity().y = -getStage().getPlayer().getVelocity().y / 2;
-        getStage().getPlayer().getVelocity().x = getStage().getPlayer().getX() - getX();
-        velocity.x = getX() - getStage().getPlayer().getX();
+        pl.getVelocity().y = -pl.getVelocity().y / 2;
+        pl.getVelocity().x = pl.getX() - getX();
+        velocity.x = getX() - pl.getX();
         touchable = false;
         used = true;
         if (effect != null) {
-            getStage().getPlayer().addEffect(effect);
+            pl.addEffect(effect);
         }
         sprite = getStage().getAtlas().createSprite("nlo_damaged");
         sprite.setFlip(false, true);
@@ -69,7 +70,7 @@ public class Obstacle extends Entity {
     public void draw(Batch batch, float alpha) {
         super.draw(batch, alpha);
         if (effect != null && !used) {
-            effect.getSprite().setCenter(getX(), getY() - getStage().getPlayer().getY() + 60);
+            effect.getSprite().setCenter(getX(), getY() - pl.getY() + 60);
             effect.getSprite().draw(batch);
         }
     }

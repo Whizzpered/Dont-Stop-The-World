@@ -6,6 +6,7 @@
 package com.mygdx.game.objects;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.effects.Effect;
 import com.mygdx.game.effects.EffectsList;
@@ -16,6 +17,7 @@ import com.mygdx.game.effects.EffectsList;
  */
 public class Player extends Entity {
     boolean up = false;
+    public boolean invincible=false;
     public short maxHealth=4;
     public short health=maxHealth;
     public float accelAbsolute =100f;
@@ -39,7 +41,7 @@ public class Player extends Entity {
         if (getVelocity().y > 100) {
             up = false;
         }
-        if (velocity.y > DEATH_VELOCITY) {
+        if (velocity.y > DEATH_VELOCITY&&!invincible) {
            health=0;
         }
         if(health<=0){
@@ -57,11 +59,10 @@ public class Player extends Entity {
     public void addEffect(Effect e){
         int a=e.getListPosition();
         if(effects[a]!=null){
-            effects[a].dispose();
+           effects[a].dispose();
         }
         effects[a] = e;
         e.apply();
-
     }
     public void removeEffect(int i){
         effects[i]=null;

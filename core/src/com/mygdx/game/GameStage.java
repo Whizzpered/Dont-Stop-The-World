@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.effects.Effect;
 import com.mygdx.game.objects.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.mygdx.game.events.*;
@@ -51,7 +52,9 @@ public class GameStage extends Stage {
     public void setGameOver(boolean gameover) {
         gameOver = gameover;
     }
-
+    public ShapeRenderer getShapeRenderer() {
+        return shape;
+    }
     //list of Events that are currently working
     public BitmapFont getFont() {
         return font;
@@ -110,7 +113,6 @@ public class GameStage extends Stage {
     @Override
     public void act(float delta) {
         if (!isGameOver()) {
-            EventHandler.act(this, 1);
             super.act(delta / slowCoef);
             points += (500 - pl.getVelocity().y) / pointCoef / slowCoef;
             if (getObstacles().size < 3) {
@@ -119,6 +121,7 @@ public class GameStage extends Stage {
                 addEntity(new Obstacle(MyGdxGame.RANDOM.nextInt(260) + 30,
                         pl.getY() + 580 + MyGdxGame.RANDOM.nextInt(100)));
             }
+            EventHandler.act(this, 1);
         }
         layer.act(delta);
     }
@@ -192,10 +195,15 @@ public class GameStage extends Stage {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         super.draw();
         shape.begin(ShapeRenderer.ShapeType.Filled);
-        shape.setColor(new Color(0,0,0,0.1f));
-        shape.rectLine(135f, 930f, 135f + 271f, 930f, 32);
-        shape.setColor(Color.RED);
-        shape.rectLine(136f, 930f, 136f + 270f * getPlayer().health / getPlayer().maxHealth, 930f, 25);
+        shape.setColor(new Color(0, 0, 0, 0.1f));
+        float w=Gdx.graphics.getWidth();
+        float h=Gdx.graphics.getHeight();
+        shape.rectLine(w/3.2f - 1, h/40 * 39-1, w/3.2f-2 + w/2.7f+4, h/40 * 39 - 1, h/50+4);
+        if(getPlayer().invincible)
+            shape.setColor(Color.GREEN);
+        else
+            shape.setColor(Color.RED);
+        shape.rectLine(w/3.2f,h/40 * 39, w/3.2f + w/2.7f * getPlayer().health / getPlayer().maxHealth, h/40 * 39, h/50);
         shape.end();
         getBatch().begin();
         getFont().setColor(Color.WHITE);
@@ -203,6 +211,9 @@ public class GameStage extends Stage {
         getFont().draw(getBatch(), (int) (getPlayer().getVelocity().y / 10) + " kM/h", 10, 30);
         layer.draw(getBatch(), 1);
         getBatch().end();
-
+        for (Effect e: getPlayer().effects){
+            if(e!=null)
+                e.draw();
+        }
     }
 }
